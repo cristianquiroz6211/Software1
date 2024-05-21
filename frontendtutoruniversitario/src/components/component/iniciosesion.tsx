@@ -1,9 +1,8 @@
-// Iniciosesion.tsx
 
 'use client';
 
 import Link from 'next/link';
-import { Registro } from './registrarse';
+import { Routes } from 'react-router-dom';
 
 interface Props {
   // Add props type definitions here
@@ -15,9 +14,9 @@ const Iniciosesion: React.FC<Props> = () => {
       <div className="mx-auto w-full max-w-md space-y-8">
         <Header />
         <Form />
-        <Link href="/registrarse">
+        <Link href="">
           <RegistroButton />
-        </Link>
+        </Link >
       </div>
     </div>
   );
