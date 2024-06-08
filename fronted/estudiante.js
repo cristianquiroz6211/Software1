@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async function () {
     try {
-        const response = await fetch('/api/estudiantes/tutores');
+        const response = await fetch('http://localhost:8080/api/estudiantes/tutores');
         if (response.ok) {
             const tutores = await response.json();
             const tutoresList = document.getElementById('tutoresList');

@@ -1,22 +1,27 @@
 document.addEventListener('DOMContentLoaded', async function () {
-    const tutorId = window.location.pathname.split('/').pop();
     try {
-        const response = await fetch(`/api/tutores/${tutorId}`);
+        const response = await fetch('http://localhost:8080/api/estudiantes/tutores');
         if (response.ok) {
-            const tutor = await response.json();
-            document.getElementById('tutorInfo').innerHTML = `
-                <p>Nombre: ${tutor.nombre}</p>
-                <p>Apellido: ${tutor.apellido}</p>
-                <p>Email: ${tutor.email}</p>
-                <p>Teléfono: ${tutor.telefono}</p>
-                <p>Descripción: ${tutor.descripcion}</p>
-                <p>Horarios Disponibles: ${tutor.horariosDisponibles}</p>
-            `;
+            const tutores = await response.json();
+            const tutoresList = document.getElementById('tutoresList');
+            tutoresList.innerHTML = '';
+            tutores.forEach(tutor => {
+                tutoresList.innerHTML += `
+                    <div>
+                        <h3>${tutor.nombre} ${tutor.apellido}</h3>
+                        <p>Email: ${tutor.email}</p>
+                        <p>Teléfono: ${tutor.telefono}</p>
+                        <p>Descripción: ${tutor.descripcion}</p>
+                        <p>Horarios Disponibles: ${tutor.horariosDisponibles}</p>
+                    </div>
+                    <hr>
+                `;
+            });
         } else {
-            alert('No se pudo cargar la información del tutor.');
+            alert('No se pudo cargar la lista de tutores.');
         }
     } catch (error) {
-        console.error('Error al cargar la información del tutor:', error);
-        alert('Ocurrió un error al cargar la información del tutor.');
+        console.error('Error al cargar la lista de tutores:', error);
+        alert('Ocurrió un error al cargar la lista de tutores.');
     }
 });
