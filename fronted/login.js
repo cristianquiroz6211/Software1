@@ -12,11 +12,12 @@ document.getElementById('loginForm').addEventListener('submit', async function (
         });
 
         if (response.ok) {
-            const user = await response.json();
-            if (user.hasOwnProperty('descripcion')) {
+            const result = await response.json();
+            if (result.role === 'tutor') {
                 // Es un tutor
-                window.location.href = `/tutor/${user.id}`;
-            } else {
+                const tutor = result.data;
+                window.location.href = `/tutor/${tutor.id}`;
+            } else if (result.role === 'estudiante') {
                 // Es un estudiante
                 window.location.href = '/estudiante/tutores';
             }
