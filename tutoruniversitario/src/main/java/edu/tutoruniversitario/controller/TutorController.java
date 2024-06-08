@@ -1,47 +1,34 @@
 package edu.tutoruniversitario.controller;
+
+
+import edu.tutoruniversitario.model.Tutor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import edu.tutoruniversitario.model.Tutor;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/tutores")
 public class TutorController {
 
     @Autowired
-    private TutorService tutorService;
-
-    @PostMapping
-    public ResponseEntity<Tutor> crearTutor(@RequestBody Tutor tutor) {
-        Tutor tutorCreado = tutorService.crearTutor(tutor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(tutorCreado);
-    }
+    private UsuarioService usuarioService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Tutor> obtenerTutorPorId(@PathVariable Long id) {
-        Tutor tutor = tutorService.obtenerTutorPorId(id);
-        return ResponseEntity.ok(tutor);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Tutor>> obtenerTodosTutores() {
-        List<Tutor> tutores = tutorService.obtenerTodosTutores();
-        return ResponseEntity.ok(tutores);
+    public ResponseEntity<?> obtenerTutor(@PathVariable int id) {
+        Tutor tutor = usuarioService.obtenerTutorPorId(id);
+        if (tutor != null) {
+            return ResponseEntity.ok(tutor);
+        }
+        return ResponseEntity.status(404).body("Tutor no encontrado");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Tutor> actualizarTutor(@PathVariable Long id, @RequestBody Tutor tutor) {
-        tutor.setId(id);
-        Tutor tutorActualizado = tutorService.actualizarTutor(tutor);
-        return ResponseEntity.ok(tutorActualizado);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarTutor(@PathVariable Long id) {
-        tutorService.eliminarTutor(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> actualizarTutor(@PathVariable int id, @RequestBody Tutor tutorActualizado) {
+        Tutor tutor = usuarioService.obtenerTutorPorId(id);
+        if (tutor != null) {
+            usuarioService.actualizarTutor(tutorActualizado);
+            return ResponseEntity.ok(tutorActualizado);
+        }
+        return ResponseEntity.status(404).body("Tutor no encontrado");
     }
 }
