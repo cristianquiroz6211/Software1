@@ -4,11 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Tutores</title>
+    <link rel="stylesheet" href="styles.css">
     <script src="estudiante.js" defer></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            margin: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #tutoresList {
+            list-style: none;
+            padding: 0;
+        }
+        .tutor {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .tutor:hover {
+            background: #e0f7fa;
+            transform: translateY(-3px);
+        }
+        .tutor h2 {
+            margin: 0 0 10px;
+            color: #00796b;
+        }
+        .tutor p {
+            margin: 0;
+            color: #555;
+        }
+        .tutor .details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .tutor .details span {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <h1>Lista de Tutores</h1>
-    <div id="tutoresList"></div>
+    <div class="container">
+        <h1>Lista de Tutores</h1>
+        <ul id="tutoresList"></ul>
+    </div>
+
+    <script>
+        // Ejemplo de datos que podrían venir del backend
+        const tutores = [
+            { nombre: 'Juan Pérez', especialidad: 'Matemáticas', experiencia: '5 años' },
+            { nombre: 'María López', especialidad: 'Física', experiencia: '3 años' },
+            { nombre: 'Carlos García', especialidad: 'Química', experiencia: '8 años' }
+        ];
+
+        const tutoresList = document.getElementById('tutoresList');
+
+        tutores.forEach(tutor => {
+            const tutorElement = document.createElement('li');
+            tutorElement.classList.add('tutor');
+            tutorElement.innerHTML = `
+                <h2>${tutor.nombre}</h2>
+                <p>Especialidad: ${tutor.especialidad}</p>
+                <div class="details">
+                    <span>Experiencia: ${tutor.experiencia}</span>
+                </div>
+            `;
+            tutoresList.appendChild(tutorElement);
+        });
+    </script>
 </body>
 </html>
-
